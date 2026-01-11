@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axcestra - Premium Accessories</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-menu a:hover { color: var(--secondary); }
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+        .hero {
+            margin-top: 70px;
+            height: 500px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.3rem; margin-bottom: 2rem; }
+        .cta-btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .cta-btn:hover { transform: translateY(-3px); }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+        .categories { padding: 80px 0; background: var(--light); }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .category-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .category-card:hover { transform: translateY(-10px); }
+        .category-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+        .category-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .products { padding: 80px 0; }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-icon {
+            font-size: 4rem;
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .product-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .product-category { color: #666; font-size: 0.9rem; }
+        .product-price { font-size: 1.5rem; font-weight: bold; color: var(--secondary); margin: 1rem 0; }
+        .add-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .add-cart-btn:hover { background: var(--primary); }
+        .about { padding: 80px 0; background: var(--light); text-align: center; }
+        .about h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        .about p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 3rem; }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .feature { text-align: center; }
+        .feature .icon { font-size: 3rem; margin-bottom: 1rem; }
+        .feature h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer h3, .footer h4 { margin-bottom: 1rem; }
+        .copyright { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo"><i class="fas fa-gem"></i> Axcestra</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-cart" style="position:relative;"><span class="cart-count">0</span></i>
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Elevate Your Style</h1>
+            <p>Premium accessories for every aspect of your life</p>
+            <button class="cta-btn">Shop Now</button>
+        </div>
+    </section>
+
+    <section id="categories" class="categories">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="icon"><i class="fas fa-laptop"></i></div>
+                    <h3>Tech</h3>
+                    <p>Chargers, cases & more</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon"><i class="fas fa-tshirt"></i></div>
+                    <h3>Fashion</h3>
+                    <p>Bags, jewelry & watches</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon"><i class="fas fa-home"></i></div>
+                    <h3>Home</h3>
+                    <p>Decor & organizers</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon"><i class="fas fa-dumbbell"></i></div>
+                    <h3>Sports</h3>
+                    <p>Fitness accessories</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon"><i class="fas fa-suitcase"></i></div>
+                    <h3>Travel</h3>
+                    <p>Luggage & organizers</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon"><i class="fas fa-car"></i></div>
+                    <h3>Automotive</h3>
+                    <p>Car accessories</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="product-grid" id="productGrid"></div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Axcestra</h2>
+            <p>We curate the finest accessories from around the world, bringing you quality products that enhance every aspect of your lifestyle.</p>
+            <div class="features">
+                <div class="feature">
+                    <div class="icon"><i class="fas fa-shipping-fast"></i></div>
+                    <h4>Free Shipping</h4>
+                    <p>On orders over $50</p>
+                </div>
+                <div class="feature">
+                    <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Secure Payment</h4>
+                    <p>100% secure</p>
+                </div>
+                <div class="feature">
+                    <div class="icon"><i class="fas fa-undo"></i></div>
+                    <h4>Easy Returns</h4>
+                    <p>30-day policy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3><i class="fas fa-gem"></i> Axcestra</h3>
+                    <p>Premium accessories for all</p>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <p>info@axcestra.com</p>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2024 Axcestra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+          { name: 'Wireless Headphones', category: 'Tech', price: 79.99, icon: 'fa-headphones' },
+          { name: 'Smart Watch Band', category: 'Fashion', price: 29.99, icon: 'fa-watch' },
+          { name: 'Coffee Mug', category: 'Home', price: 24.99, icon: 'fa-mug-hot' },
+          { name: 'Travel Backpack', category: 'Travel', price: 89.99, icon: 'fa-backpack' },
+          { name: 'Phone Stand', category: 'Tech', price: 19.99, icon: 'fa-mobile-alt' },
+          { name: 'Leather Keychain', category: 'Fashion', price: 14.99, icon: 'fa-key' }
+        ];
+        
+        let cart = 0;
+        
+        function renderProducts() {
+          const grid = document.getElementById('productGrid');
+          products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+              <div class="product-icon"><i class="fas ${product.icon}"></i></div>
+              <h3>${product.name}</h3>
+              <p class="product-category">${product.category}</p>
+              <p class="product-price">$${product.price}</p>
+              <button class="add-cart-btn" onclick="addToCart()">Add to Cart</button>
+            `;
+            grid.appendChild(card);
+          });
+        }
+        
+        function addToCart() {
+          cart++;
+          document.querySelector('.cart-count').textContent = cart;
+          showNotification('Added to cart!');
+        }
+        
+        function showNotification(msg) {
+          const notif = document.createElement('div');
+          notif.style.cssText = 'position:fixed;top:100px;right:20px;background:#2c3e50;color:white;padding:15px 25px;border-radius:50px;z-index:10000;';
+          notif.textContent = msg;
+          document.body.appendChild(notif);
+          setTimeout(() => notif.remove(), 2000);
+        }
+        
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+          a.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+          });
+        });
+        
+        renderProducts();
+    </script>
+</body>
+</html>
